@@ -15,4 +15,10 @@ class Book extends Model
         'image_path',
         'deleted_at',
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
 }

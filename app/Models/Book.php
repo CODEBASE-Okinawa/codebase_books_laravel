@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
-{   
+{
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -15,4 +15,15 @@ class Book extends Model
         'image_path',
         'deleted_at',
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function lendings()
+    {
+        return $this->hasMany(Lending::class);
+    }
+
 }

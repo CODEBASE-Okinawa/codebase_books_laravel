@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->integer('role')->default(2)->change();
-        }
+        });
     }
     /**
      * Reverse the migrations.

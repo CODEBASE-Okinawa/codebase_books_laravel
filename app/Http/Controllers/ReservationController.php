@@ -32,8 +32,6 @@ class ReservationController extends Controller
 
         $reservations = $user->reservations()->where('start_at', '>=', Carbon::now())->with('book')->get()->sortBy('start_at');
 
-        // dd($reservations);
-
         return view('reservation.index', compact('reservations'));
     
     }

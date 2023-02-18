@@ -2,7 +2,7 @@
 
 @foreach ( $reservations as $reservation)
 
-  <a href="">
+  <a href="{{ route('reservation.show', ['reservationId' => $reservation->id]) }}">
     <img src="{{ asset($reservation->book->image_path) }}" alt="">
 
     <h3>{{ $reservation->book->title }}</h3>

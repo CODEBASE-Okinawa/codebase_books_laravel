@@ -36,4 +36,30 @@ class ReservationController extends Controller
     
     }
 
+    public function show(int $reservationId)
+    {
+        $user = Auth::user();
+
+        $reservation = $user->reservations
+            ->where('id', $reservationId)
+            ->first();
+
+        return view('reservation.show', compact('reservation'));
+    }
+
+
+    public function destroy(Request $request, int $reservationId)
+    {
+        // 削除処理
+        $user = Auth::user();
+
+        $reservation = $user->reservations
+            ->where('id', $reservationId)
+            ->first();
+
+        $reservation->delete();
+
+        return redirect()->route('reservation.index');
+    }
+
 }

@@ -50,10 +50,18 @@ class ReservationController extends Controller
     }
 
 
-    public function destroy(int $reservationId)
+    public function destroy(Request $request, int $reservationId)
     {
+        // 削除処理
+        $user = Auth::user();
 
+        $reservation = $user->reservations
+            ->where('id', $reservationId)
+            ->first();
 
+        $reservation->delete();
+
+        return redirect()->route('reservation.index');
     }
 
 }

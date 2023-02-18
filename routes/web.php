@@ -30,5 +30,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-Route::get('/admin/books/create', [BookController::class, 'create']);
+// Route::get('/admin/books/create', [BookController::class, 'create']);
 

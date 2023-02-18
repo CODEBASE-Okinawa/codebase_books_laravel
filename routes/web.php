@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     //reservationルーティング
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservation.store');
     Route::get('/reservations',[ReservationController::class,'index'])->name('reservation.index');
-    Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->middleware(['reservation'])->name('reservation.show');
+    Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->middleware(['delete_past_reservation'])->name('reservation.show');
     Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 });
 

@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 
-class ReservationMiddleware
+class DeletePastReservationMiddleware
 {
     /**
      * Handle an incoming request.

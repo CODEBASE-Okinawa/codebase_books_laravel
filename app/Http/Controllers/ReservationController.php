@@ -44,8 +44,6 @@ class ReservationController extends Controller
             ->where('id', $reservationId)
             ->first();
 
-        // dd($reservations);
-
         return view('reservation.show', compact('reservation'));
     }
 

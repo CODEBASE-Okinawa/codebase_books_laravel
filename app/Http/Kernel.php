@@ -63,6 +63,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'reservation' => \App\Http\Middleware\ReservationMiddleware::class
+        'delete_past_reservation' => \App\Http\Middleware\DeletePastReservationMiddleware::class
     ];
 }

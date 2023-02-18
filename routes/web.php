@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/books/{bookId}', [BookController::class, 'show'])->name('book.show');
 
     //reservationルーティング
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservation.store');
     Route::get('/reservations',[ReservationController::class,'index'])->name('reservation.index');
-    Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->name('reservation.show');
-    Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->middleware(['reservation'])->name('reservation.destroy');
+    Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->middleware(['reservation'])->name('reservation.show');
+    Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 });
 
 require __DIR__.'/auth.php';

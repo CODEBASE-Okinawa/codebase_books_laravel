@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservation.store');
     Route::get('/reservations',[ReservationController::class,'index'])->name('reservation.index');
     Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->name('reservation.show');
-    Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+    Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->middleware(['reservation'])->name('reservation.destroy');
 });
 
 require __DIR__.'/auth.php';

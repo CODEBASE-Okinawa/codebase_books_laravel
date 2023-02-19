@@ -7,11 +7,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use App\Http\Requests\ReservationStoreRequest;
 
 class ReservationController extends Controller
 {
     
-    public function store(Request $request)
+    public function store( ReservationStoreRequest $request)
     {
 
         $user = Auth::user();

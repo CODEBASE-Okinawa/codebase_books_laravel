@@ -11,6 +11,6 @@
 </div>
 
 <div>
-    <a href="/books"><input type="submit" value="戻る"></a>
+    <a href="{{ route('book.index') }}"><input type="submit" value="戻る"></a>
 </div>
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\ReservationController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\LendingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/books/{bookId}', [BookController::class, 'show'])->name('book.show');
 
-    //reservationルーティング
+
+    //lendings-returnルーティング
+    Route::get('/lendings/{lendingId}/return',[LendingController::class,'updateIsReturned'])->name('lending.updateIsReturned');
+    Route::put('/lendings/{lendingId}/return',[LendingController::class,'updateIsReturned'])->name('lending.updateIsReturned');
+    Route::get('/lendings/{lendingId}',[LendingController::class,'show'])->name('lending.show');
+
+    //reservationsルーティング
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservation.store');
     Route::get('/reservations',[ReservationController::class,'index'])->name('reservation.index');
     Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->middleware(['delete_past_reservation'])->name('reservation.show');

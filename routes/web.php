@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\LendingsController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
@@ -30,7 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // bookルーティング
+    Route::get('/books', [BookController::class, 'index'])->name('book.index');
     Route::get('/books/{bookId}', [BookController::class, 'show'])->name('book.show');
+
+    // lendingルーティング
+    Route::post('/lendings', [LendingsController::class, 'store']);
 
     //reservationルーティング
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservation.store');

@@ -29,13 +29,15 @@ class BookResource extends Resource
             ->schema([
                 //編集したい項目の追加
                 TextInput::make('title')
-                    ->label('本タイトル')    
-                    ->required()
-                    ->hint("本のタイトル"),
+                    ->label('本タイトル')
+                    ->hint("本のタイトル")
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create'),
                 FileUpload::make('image_path')
                     ->image()
                     ->label('画像')
-                    ->required(),
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create'),
             ]);
     }
 
@@ -44,8 +46,13 @@ class BookResource extends Resource
         return $table
             ->columns([
                 //表示したい項目の追加
-                TextColumn::make('title')->label('本のタイトル'),
+                TextColumn::make('id')->label('ID'),
                 ImageColumn::make('image_path')->label('画像'),
+                TextColumn::make('title')->label('タイトル'),
+                TextColumn::make('lendings.book_id')
+                    ->getStateUsing( function (Model $record): string{
+                        return $record;
+                   }),
             ])
             ->filters([
                 //
@@ -62,6 +69,7 @@ class BookResource extends Resource
     {
         return [
             //
+            RelationManagers\LendingsRelationManager::class,
         ];
     }
     

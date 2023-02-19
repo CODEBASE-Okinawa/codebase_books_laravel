@@ -24,5 +24,5 @@
 @endif
 
 <div>
-    <a href="{{ route('lending.index') }}"><input type="submit" value="戻る"></a>
+    <a href="{{ url()->previous() }}">戻る</a>
 </div>

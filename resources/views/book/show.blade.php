@@ -14,6 +14,6 @@
 </div>
 
 <div>
-    <a href="{{ route('book.index') }}"><input type="submit" value="戻る"></a>
+    <a href="{{ url()->previous() }}">戻る</a>
 </div>
 

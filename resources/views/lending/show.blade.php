@@ -6,7 +6,7 @@
   
 </a>
 
-<form action="{{ route('lending.updateIsReturned', ['lendingId' => $lending->id]) }}" method="get">
+<form action="{{ route('lending.updateIsReturned', ['lendingId' => $lending->id]) }}" method="post">
   @csrf
   @method('PUT')
   <input type="submit" value="返却する">

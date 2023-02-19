@@ -19,8 +19,15 @@ class LendingController extends Controller
 
     public function show(int $lendingId)
     {
-        $lending = Lending::find($lendingId);
-        return view('lending.show', compact('lending'));
+        $user = Auth::user();
+
+        $lending = $user->lendings()
+            ->where('id',$lendingId )
+            ->first();
+
+            $now = Carbon::now();
+
+            return view('lending.show', compact('lending', 'now'));
     }
 
     public function store(Request $request)
@@ -35,13 +42,16 @@ class LendingController extends Controller
         return redirect()->route('lending.index');
     }
 
-    public function destroy(Request $request, int $lendingId)
+    public function updateIsReturned(Request $request, int $lendingId)
     {
         $user = Auth::user();
-        $lending = $user->lendings
-            ->where('id', $lendingId)
-            ->first();
-        $lending->delete();
-        return redirect()->route('lending.index');
+
+        $lending = $user->lendings()->where('id', $lendingId)->first();
+
+        $lending->update([
+            'is_returned' => 1
+        ]);
+
+        return redirect()->route('book.show',['bookId' => $lending->book_id]);
     }
 }

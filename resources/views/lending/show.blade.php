@@ -12,7 +12,7 @@
   <input type="submit" value="返却する">
 </form>
 
-@if ($lending->end_at < \Carbon\Carbon::now())
+@if ($lending->end_at < $now)
 
   <p>	返却期間過ぎています！</p>
 

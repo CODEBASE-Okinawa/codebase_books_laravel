@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lending;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -31,7 +32,9 @@ class LendingController extends Controller
             ->where('id',$lendingId )
             ->first();
 
-            return view('lending.show', compact('lending'));
+            $now = Carbon::now();
+
+            return view('lending.show', compact('lending', 'now'));
     }
     
 }

@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\LendingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\LendingsController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
@@ -36,7 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/books/{bookId}', [BookController::class, 'show'])->name('book.show');
 
     // lendingルーティング
-    Route::post('/lendings', [LendingsController::class, 'store']);
+    Route::get('/lendings', [LendingController::class, 'index'])->name('lending.index');
+    Route::get('/lendings/{lendingId}', [LendingController::class, 'show'])->name('lending.show');
+    Route::post('/lendings', [LendingController::class, 'store'])->name('lending.store');
+    Route::delete('/lendings/{lendingId}', [LendingController::class, 'destroy'])->name('lending.destroy');
 
     //reservationルーティング
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservation.store');

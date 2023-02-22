@@ -54,4 +54,5 @@ class LendingController extends Controller
 
         return redirect()->route('book.show',['bookId' => $lending->book_id]);
     }
+
 }

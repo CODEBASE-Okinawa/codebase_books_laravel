@@ -27,13 +27,3 @@ class DeleteAllPastReservationMiddleware
         return $next($request);
     }
 }
-
-// public function sample(Closure $next)
-// {
-//     $user = Auth::user();
-
-//     $user->reservations()->where('end_at', '<', Carbon::now())->delete();
-
-//     return $next();
-
-// }

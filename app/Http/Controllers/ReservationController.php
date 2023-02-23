@@ -24,9 +24,7 @@ class ReservationController extends Controller
             'end_at' => Carbon::parse($request->get('end_at')),
         ]);
 
-        Log::debug('きてるよー１');
         return redirect()->route('reservation.index');
-        Log::debug('きてるよー2');
     }
 
     public function index()

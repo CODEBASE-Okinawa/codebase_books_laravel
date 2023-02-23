@@ -1,4 +1,3 @@
-{{--とりあえず形だけ作っている状態。フォームアクションは未完成--}}
 <h1>{{ $book->title }}</h1>
 <img src="{{ asset('storage/'.$book->image_path) }}" alt="">
 <div>
@@ -37,16 +36,18 @@
             fetch("{{ route('lending.store') }}", {
                 method: 'POST',
                 body: formData
-            });
-            // リダイレクト処理
-            window.location.href = "{{ route('lending.index') }}"
+            })
+                .then(() => {
+                    window.location.href = "{{ route('lending.index') }}";
+                });
         } else if (clickedButton === reservationButton) {
             fetch("{{ route('reservation.store') }}", {
                 method: 'POST',
                 body: formData
-            });
-            // リダイレクト処理
-            window.location.href = "{{ route('reservation.index') }}"
+            })
+                .then(() => {
+                    window.location.href = "{{ route('reservation.index') }}"
+                });
         }
     });
 </script>

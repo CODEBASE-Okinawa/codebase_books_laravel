@@ -15,7 +15,7 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 flex justify-between">
-                    <img src="{{ asset('storage/'.$book->image_path) }}" alt="">
+                    <img class="object-cover w-1/3" src="{{ asset('storage/'.$book->image_path) }}" alt="">
                     <div>
                         <p class="text-4xl font-bold mb-4">{{ $book->title }}</p>
                         <p class="inline-block font-bold bg-lime-500 px-8">貸出可能</p>

@@ -63,6 +63,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'delete_past_reservation' => \App\Http\Middleware\DeletePastReservationMiddleware::class
+        'delete_past_reservation' => \App\Http\Middleware\DeletePastReservationMiddleware::class,
+        'delete_all_past_reservation' => \App\Http\Middleware\DeleteAllPastReservationMiddleware::class,
+        'book_redirect_branch' => \App\Http\Middleware\BookRedirectBranchMiddleware::class,
     ];
 }

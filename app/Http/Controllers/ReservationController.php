@@ -6,11 +6,12 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 class ReservationController extends Controller
 {
-    
+
     public function store(Request $request)
     {
 
@@ -23,7 +24,9 @@ class ReservationController extends Controller
             'end_at' => Carbon::parse($request->get('end_at')),
         ]);
 
+        Log::debug('きてるよー１');
         return redirect()->route('reservation.index');
+        Log::debug('きてるよー2');
     }
 
     public function index()
@@ -33,7 +36,7 @@ class ReservationController extends Controller
         $reservations = $user->reservations()->where('start_at', '>=', Carbon::now())->with('book')->get()->sortBy('start_at');
 
         return view('reservation.index', compact('reservations'));
-    
+
     }
 
     public function show(int $reservationId)

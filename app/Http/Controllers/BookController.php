@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lending;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,9 +10,55 @@ use Illuminate\Support\Facades\Auth;
 class BookController extends Controller
 {
     public function index() {
-        $books = Book::with('lendings')->get();
         $user = Auth::user();
-        return view('book.index', compact('books', 'user'));
+
+        $statusList = [];
+
+        // 自分が借りている本データ取得
+        $now_lendings = Book::with(['latestLending' => function ($now_lending) use ($user)  {
+            $now_lending->where( 'user_id', '=', $user->id )->where('is_returned', '=', 0);
+        }])
+        ->get();
+
+        $myLendingBookIdList = $now_lendings->pluck('latestLending')->pluck('book_id')->reject(null);
+
+        foreach ($myLendingBookIdList as $myLendingBookId) {
+            $statusList[$myLendingBookId] = '現在借りています';
+        }
+
+        // 自分が予約している本データ取得
+        $reservations = Book::with(['latestReservation' => function ($reservation) use ($user) {
+            $reservation->where('user_id', '=', $user->id);
+        }])
+        ->get();
+        
+        $myReservationBookIdList = $reservations->pluck('latestReservation')->pluck('book_id')->reject(null);
+
+        foreach ($myReservationBookIdList as $myReservationBookId) {
+            $statusList[$myReservationBookId] = '予約しています';
+        }
+
+        $exceptBookIdList = $myLendingBookIdList->merge($myReservationBookIdList);
+
+        // 貸出中、貸出可能データ取得
+        $lendings = Book::with(['latestLending' => function ($latestLending) use ($user)  {
+            $latestLending->where( 'user_id', '!=', $user->id )->where('is_returned', '=', 0);
+        }])
+        ->whereNotIn('id', $exceptBookIdList)
+        ->get();
+        
+        foreach ($lendings as $book) {
+
+            if($book->latestLending){
+                $statusList[$book->id] = '貸出中';
+            }else{
+                $statusList[$book->id] = '貸出可能';
+            }
+        }
+
+        $books = Book::all();
+       
+        return view('book.index', compact( 'user', 'statusList', 'books'));
     }
     public function show(int $bookId)
     {

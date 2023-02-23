@@ -26,4 +26,15 @@ class Book extends Model
         return $this->hasMany(Lending::class);
     }
 
+    public function latestLending()
+    {
+        // 最新データ取得
+        return $this->hasOne(Lending::class)->latestOfMany();
+    }
+
+    public function latestReservation()
+    {
+        // 最新データ取得
+        return $this->hasOne(Reservation::class)->latestOfMany();
+    }
 }

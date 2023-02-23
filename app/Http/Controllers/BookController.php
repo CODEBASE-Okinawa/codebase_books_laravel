@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lending;
 use App\Models\Book;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -23,7 +21,7 @@ class BookController extends Controller
         $myLendingBookIdList = $now_lendings->pluck('latestLending')->pluck('book_id')->reject(null);
 
         foreach ($myLendingBookIdList as $myLendingBookId) {
-            $statusList[$myLendingBookId] = '現在借りています';
+            $statusList[$myLendingBookId] = MY_LENDING;
         }
 
         // 自分が予約している本データ取得
@@ -31,11 +29,11 @@ class BookController extends Controller
             $reservation->where('user_id', '=', $user->id);
         }])
         ->get();
-        
+
         $myReservationBookIdList = $reservations->pluck('latestReservation')->pluck('book_id')->reject(null);
 
         foreach ($myReservationBookIdList as $myReservationBookId) {
-            $statusList[$myReservationBookId] = '予約しています';
+            $statusList[$myReservationBookId] = MY_RESERVATION;
         }
 
         $exceptBookIdList = $myLendingBookIdList->merge($myReservationBookIdList);
@@ -46,18 +44,18 @@ class BookController extends Controller
         }])
         ->whereNotIn('id', $exceptBookIdList)
         ->get();
-        
+
         foreach ($lendings as $book) {
 
             if($book->latestLending){
-                $statusList[$book->id] = '貸出中';
+                $statusList[$book->id] = OTHER_LENDING;
             }else{
-                $statusList[$book->id] = '貸出可能';
+                $statusList[$book->id] = NO_LENDING;
             }
         }
 
         $books = Book::all();
-       
+
         return view('book.index', compact( 'user', 'statusList', 'books'));
     }
     public function show(int $bookId)

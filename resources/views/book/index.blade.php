@@ -23,7 +23,6 @@
                                 <ul class="bg-zinc-400 p-3">
                                     <li class="text-2xl font-bold">{{ $book->title }}</li>
                                     <li class="inline-block px-8 {{ config('status.bg-color')[$statusList[$book->id]] }}">{{ $statusList[$book->id] }}</li>
-                                    <li>{{ $book->lendings->value('is_returned') }}</li>
                                 </ul>
                             </a>
                         </div>

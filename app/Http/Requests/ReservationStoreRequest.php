@@ -25,11 +25,8 @@ class ReservationStoreRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        // dd($request->start_at);
-        $now = Carbon::now()->toDateString();
-
         return [
-            'start_at' => 'required|date|before:' . $now,
+            'start_at' => 'required|date|before:now',
             'end_at' => 'required|date|after:start_at'
 
         ];

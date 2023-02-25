@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LendingStoreRequest extends FormRequest
@@ -24,9 +24,6 @@ class LendingStoreRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-
-        $now = Carbon::now()->toDateString();
-
         return [
             
             'start_at' => 'required|date|before:now',

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 
 class DeletePastReservationMiddleware
 {
@@ -18,7 +19,6 @@ class DeletePastReservationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-
         // ルートパラメーターからreservationIdを取得する
         $reservationId = $request->route()->parameter('reservationId');
         // reservationIdを抽出条件にReservationデータを取得
@@ -36,4 +36,5 @@ class DeletePastReservationMiddleware
         return $next($request);
 
     }
+
 }

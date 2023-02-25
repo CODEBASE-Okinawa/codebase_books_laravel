@@ -9,7 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
+
+class User extends Authenticatable implements HasName
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -53,4 +57,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Lending::class);
     }
+
+    public function getFilamentName(): string
+    {
+        return "{$this->name}";
+    }
+    // public static $filamentRolesColumn = 'role';
 }

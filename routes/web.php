@@ -26,14 +26,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'delete_all_past_reservation'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // bookルーティング
     Route::get('/books', [BookController::class, 'index'])->name('book.index');
-    Route::get('/books/{bookId}', [BookController::class, 'show'])->name('book.show');
+    Route::get('/books/{bookId}', [BookController::class, 'show'])->middleware(['book_redirect_branch'])->name('book.show');
 
     // lendingルーティング
     Route::get('/lendings', [LendingController::class, 'index'])->name('lending.index');

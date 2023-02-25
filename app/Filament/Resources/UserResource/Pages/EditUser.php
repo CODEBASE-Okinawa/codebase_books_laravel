@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\BookResource\Pages;
+namespace App\Filament\Resources\UserResource\Pages;
 
-use App\Filament\Resources\BookResource;
+use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Auth;
 
-class EditBook extends EditRecord
+class EditUser extends EditRecord
 {
-    protected static string $resource = BookResource::class;
+    protected static string $resource = UserResource::class;
 
     protected function getActions(): array
     {

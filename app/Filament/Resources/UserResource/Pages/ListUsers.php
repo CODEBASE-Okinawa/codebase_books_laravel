@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\BookResource\Pages;
+namespace App\Filament\Resources\UserResource\Pages;
 
-use App\Filament\Resources\BookResource;
+use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
-class ListBooks extends ListRecords
+class ListUsers extends ListRecords
 {
-    protected static string $resource = BookResource::class;
+    protected static string $resource = UserResource::class;
 
     protected function getActions(): array
     {

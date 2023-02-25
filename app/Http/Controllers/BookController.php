@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Lending;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -61,7 +61,6 @@ class BookController extends Controller
     }
     public function show(int $bookId)
     {
-        $status = '';
         // book_idで最新の貸出情報を抽出
         $lending = Book::where('id', $bookId)->with('latestLending')->first();
 
@@ -74,8 +73,9 @@ class BookController extends Controller
         }else{
             $status = NO_LENDING;
         }
-        
+
         $book = Book::find($bookId);
-        return view('book.show', compact('book', 'status'));
+        $now = Carbon::now()->toDateString();
+        return view('book.show', compact('book', 'now', 'status'));
     }
 }

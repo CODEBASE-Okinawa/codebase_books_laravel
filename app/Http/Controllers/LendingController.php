@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LendingStoreRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class LendingController extends Controller
             return view('lending.show', compact('lending', 'now'));
     }
 
-    public function store(Request $request)
+    public function store(LendingStoreRequest $request)
     {
         $user = Auth::user();
         $user->lendings()->create([

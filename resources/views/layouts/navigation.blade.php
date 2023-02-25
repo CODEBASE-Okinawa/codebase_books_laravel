@@ -13,6 +13,14 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @auth
+                    @if (Auth::user()->role == 1)
+                        <x-nav-link :href="route('filament.resources.books.index')" :active="request()->routeIs('filament.resources.books.index')">
+                            {{ __('本管理') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('filament.resources.users.index')" :active="request()->routeIs('filament.resources.users.index')">
+                            {{ __('ユーザー一覧') }}
+                        </x-nav-link>
+                    @endif
                         <x-nav-link :href="route('book.index')" :active="request()->routeIs('book.index')">
                             {{ __('本一覧') }}
                         </x-nav-link>

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Lending;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +40,7 @@ class LendingController extends Controller
         return redirect()->route('lending.index');
     }
 
-    public function updateIsReturned(Request $request, int $lendingId)
+    public function updateIsReturned(int $lendingId)
     {
         $user = Auth::user();
 

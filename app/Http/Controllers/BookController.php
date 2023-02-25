@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Lending;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -60,7 +61,21 @@ class BookController extends Controller
     }
     public function show(int $bookId)
     {
+        $status = '';
+        // book_idで最新の貸出情報を抽出
+        $lending = Book::where('id', $bookId)->with('latestLending')->first();
+
+        if($lending->latestLending){
+            if($lending->latestLending->is_returned == 0){
+                $status = OTHER_LENDING;
+            }else{
+                $status = NO_LENDING;
+            }
+        }else{
+            $status = NO_LENDING;
+        }
+        
         $book = Book::find($bookId);
-        return view('book.show', compact('book'));
+        return view('book.show', compact('book', 'status'));
     }
 }

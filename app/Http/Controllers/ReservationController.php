@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +9,7 @@ use App\Http\Requests\ReservationStoreRequest;
 
 class ReservationController extends Controller
 {
-    
+
     public function store( ReservationStoreRequest $request)
     {
 

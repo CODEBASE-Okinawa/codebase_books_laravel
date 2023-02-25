@@ -19,7 +19,7 @@
                     <div>
                         <p class="text-4xl font-bold mb-4">{{ $book->title }}</p>
                         <p class="inline-block font-bold bg-lime-500 px-8 {{ config('status.bg-color')[$status] }}">{{ $status }}</p>
-                        <form class="mt-10" id="two-destinations-form">
+                        <form class="mt-10" id="two-destinations-form" method="POST">
                             @csrf
                             <input type="date" name="start_at" class="w-4/5 mr-2 mb-3" value="{{ old('start_at') }}"><span class="text-2xl">から</span>
                             <input type="date" name="end_at" class="w-4/5 mr-2" value="{{ old('end_at') }}"><span class="text-2xl">まで</span>

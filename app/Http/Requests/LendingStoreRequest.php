@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,9 +25,10 @@ class LendingStoreRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        return [
+        $now = Carbon::now()->toDateString();
 
-            'start_at' => 'required|date|after:now',
+        return [
+            'start_at' => 'required|date|after_or_equal:' . $now,
             'end_at'   => 'required|date|after:start_at'
 
         ];
@@ -35,10 +37,10 @@ class LendingStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'start_at.required' => '貸出開始日は必須です',
-            'start_at.after'    => '貸出開始日は本日以降で入力してください',
-            'end_at.required'   => '貸出終了日は必須です',
-            'end_at.after'      => '貸出終了日は予約開始日以降で入力してください'
+            'start_at.required'       => '貸出開始日は必須です',
+            'start_at.after_or_equal' => '貸出開始日は本日以降で入力してください',
+            'end_at.required'         => '貸出終了日は必須です',
+            'end_at.after'            => '貸出終了日は予約開始日以降で入力してください'
         ];
     }
 }

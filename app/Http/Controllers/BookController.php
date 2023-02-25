@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -61,6 +62,7 @@ class BookController extends Controller
     public function show(int $bookId)
     {
         $book = Book::find($bookId);
-        return view('book.show', compact('book'));
+        $now = Carbon::now()->toDateString();
+        return view('book.show', compact('book', 'now'));
     }
 }

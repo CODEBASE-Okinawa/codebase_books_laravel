@@ -34,7 +34,11 @@ class BookRedirectBranchMiddleware
             return redirect()->route('reservation.show',['reservationId' => $reservation->id]);
         }
 
-        $lending = $user->lendings()->where('book_id', $bookId)->first(); // 自分の借りてる本を取得
+        $lending = $user->lendings()
+            ->where('book_id', $bookId)
+            ->where('is_returned', 0)
+            ->first(); // 自分の借りてる本を取得
+
         if (! is_null($lending)){
             return redirect()->route('lending.show',['lendingId' => $lending->id]);
         }

@@ -49,10 +49,10 @@ class BookResource extends Resource
                 TextColumn::make('id')->label('ID'),
                 ImageColumn::make('image_path')->label('画像'),
                 TextColumn::make('title')->label('タイトル'),
-                TextColumn::make('lendings.book_id')
-                    ->getStateUsing( function (Model $record): string{
-                        return $record;
-                   }),
+                // TextColumn::make('lendings.book_id')
+                //     ->getStateUsing( function (Model $record): string{
+                //         return $record;
+                //    }),
             ])
             ->filters([
                 //
@@ -64,7 +64,7 @@ class BookResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
@@ -72,7 +72,7 @@ class BookResource extends Resource
             RelationManagers\LendingsRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -80,5 +80,5 @@ class BookResource extends Resource
             'create' => Pages\CreateBook::route('/create'),
             'edit' => Pages\EditBook::route('/{record}/edit'),
         ];
-    }    
+    }
 }

@@ -36,7 +36,7 @@ class ReservationStoreRequest extends FormRequest
     {
         return [
             'start_at.required' => '予約開始日は必須です',
-            'start_at.after'    => '予約開始日は本日以降で入力してください',
+            'start_at.after'    => '予約開始日は翌日以降で入力してください',
             'end_at.required'   => '予約終了日は必須です',
             'end_at.after'      => '予約終了日は予約開始日以降で入力してください'
         ];

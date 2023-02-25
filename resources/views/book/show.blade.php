@@ -18,8 +18,7 @@
                     <img class="object-cover w-1/3" src="{{ asset('storage/'.$book->image_path) }}" alt="">
                     <div>
                         <p class="text-4xl font-bold mb-4">{{ $book->title }}</p>
-                        <p class="inline-block font-bold bg-lime-500 px-8">貸出可能</p>
-
+                        <p class="inline-block font-bold bg-lime-500 px-8 {{ config('status.bg-color')[$status] }}">{{ $status }}</p>
                         <form class="mt-10" id="two-destinations-form" method="POST">
                             @csrf
                             <input type="date" name="start_at" class="w-4/5 mr-2 mb-3" value="{{ old('start_at') }}"><span class="text-2xl">から</span>
@@ -29,7 +28,7 @@
                             <input type="hidden" name="is_returned" value="0">
 
                             <div class="w-4/5 flex justify-between mt-10">
-                                <input type="submit" formaction="{{ route('lending.store') }}" class="w-1/3 bg-sky-500 font-bold py-2" value="借りる">
+                                <input type="submit" formaction="{{ route('lending.store') }}" class="w-1/3 {{ $status == OTHER_LENDING ? 'bg-slate-400' : 'bg-sky-500' }} font-bold py-2" {{ $status == OTHER_LENDING ? 'disabled' : '' }} value="借りる">
                                 <input type="submit" formaction="{{ route('reservation.store') }}" class="w-1/3 bg-yellow-300 font-bold py-2" value="予約する">
                             </div>
                         </form>

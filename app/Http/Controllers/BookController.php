@@ -61,8 +61,21 @@ class BookController extends Controller
     }
     public function show(int $bookId)
     {
+        // book_idで最新の貸出情報を抽出
+        $lending = Book::where('id', $bookId)->with('latestLending')->first();
+
+        if($lending->latestLending){
+            if($lending->latestLending->is_returned == 0){
+                $status = OTHER_LENDING;
+            }else{
+                $status = NO_LENDING;
+            }
+        }else{
+            $status = NO_LENDING;
+        }
+
         $book = Book::find($bookId);
         $now = Carbon::now()->toDateString();
-        return view('book.show', compact('book', 'now'));
+        return view('book.show', compact('book', 'now', 'status'));
     }
 }

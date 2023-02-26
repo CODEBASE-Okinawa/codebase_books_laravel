@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Lending;
+use App\Http\Requests\LendingStoreRequest;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\RemindReturnBookMail;
 use Illuminate\Support\Facades\Mail;
@@ -32,7 +30,7 @@ class LendingController extends Controller
             return view('lending.show', compact('lending', 'now'));
     }
 
-    public function store(Request $request)
+    public function store(LendingStoreRequest $request)
     {
         $user = Auth::user();
         $user->lendings()->create([
@@ -44,7 +42,7 @@ class LendingController extends Controller
         return redirect()->route('lending.index');
     }
 
-    public function updateIsReturned(Request $request, int $lendingId)
+    public function updateIsReturned(int $lendingId)
     {
         $user = Auth::user();
 
@@ -77,3 +75,4 @@ class LendingController extends Controller
     }
 
 }
+

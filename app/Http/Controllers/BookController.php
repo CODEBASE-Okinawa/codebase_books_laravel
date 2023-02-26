@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
@@ -60,7 +61,33 @@ class BookController extends Controller
     }
     public function show(int $bookId)
     {
+        // book_idで最新の貸出情報を抽出
+        $lending = Book::where('id', $bookId)->with('latestLending')->first();
+
+        if($lending->latestLending){
+            if($lending->latestLending->is_returned == 0){
+                $status = OTHER_LENDING;
+            }else{
+                $status = NO_LENDING;
+            }
+        }else{
+            $status = NO_LENDING;
+        }
+
+        $reservationList = $this->getReservationList($bookId);
+
         $book = Book::find($bookId);
-        return view('book.show', compact('book'));
+        $now = Carbon::now()->toDateString();
+        return view('book.show', compact('book', 'now', 'status', 'reservationList','lending'));
+    }
+
+    public function getReservationList(int $bookId)
+    {
+        // その本の予約リストを取得する
+        $book = Book::find($bookId);
+        $now = Carbon::now()->toDateString();
+        $reservationList = $book->reservations()->where('start_at', '>=', $now)->get()->sortBy('start_at');
+       // 予約リスト返却する
+        return $reservationList;
     }
 }

@@ -7,6 +7,8 @@ use App\Models\Lending;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\RemindReturnBookMail;
+use Illuminate\Support\Facades\Mail;
 
 class LendingController extends Controller
 {
@@ -53,6 +55,25 @@ class LendingController extends Controller
         ]);
 
         return redirect()->route('book.show',['bookId' => $lending->book_id]);
+    }
+
+    public function send()
+    {
+        $lendings = Lending::with('user', 'book')->where('end_at', '<', Carbon::now()->addDays(3))->get();
+//        dd($lendings);
+        $targets = [];
+        foreach ($lendings as $lending) {
+            $targets['name'] = $lending->user->name;
+            $targets['email'] = $lending->user->email;
+            $targets['book'] = $lending->book->title;
+            $targets['image'] = $lending->book->image_path;
+            $targets['end_at'] = $lending->end_at;
+        }
+        dd($targets);
+        foreach ($targets as $target) {
+//            dd($target['email']);
+            Mail::to($target['email'])->send(new RemindReturnBookMail($target));
+        }
     }
 
 }

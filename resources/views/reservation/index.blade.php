@@ -22,7 +22,7 @@
                                      alt="book">
                                 <ul class="bg-zinc-400 p-3">
                                     <li class="text-2xl font-bold">{{ $reservation->book->title }}</li>
-                                    <li>{{ \Carbon\Carbon::parse($reservation->start_at)->format('Y年m月d日')}}まで</li>
+                                    <li>{{ \Carbon\Carbon::parse($reservation->start_at)->format('Y年m月d日')}}から</li>
                                 </ul>
                             </a>
                         </div>

@@ -20,7 +20,7 @@
                         <p class="text-4xl font-bold mb-4">{{ $book->title }}</p>
                         <p class="inline-block font-bold bg-lime-500 px-8 {{ config('status.bg-color')[$status] }}">{{ $status }}</p>
                         @if ($status == OTHER_LENDING )
-                            <p>{{ \Carbon\Carbon::parse($lending->end_at)->addDay()->format('Y年m月d日')}}から貸出・予約可能です</p>
+                            <p>{{ \Carbon\Carbon::parse($lending->latestLending->end_at)->addDay()->format('Y年m月d日')}}から貸出・予約可能です</p>
                         @endif
                         
                         <form class="mt-10" id="two-destinations-form" method="POST">

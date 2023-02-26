@@ -19,6 +19,10 @@
                     <div>
                         <p class="text-4xl font-bold mb-4">{{ $book->title }}</p>
                         <p class="inline-block font-bold bg-lime-500 px-8 {{ config('status.bg-color')[$status] }}">{{ $status }}</p>
+                        @if ($status == OTHER_LENDING )
+                            <p>{{ \Carbon\Carbon::parse($lending->end_at)->addDay()->format('Y年m月d日')}}から貸出・予約可能です</p>
+                        @endif
+                        
                         <form class="mt-10" id="two-destinations-form" method="POST">
                             @csrf
                             <input type="date" name="start_at" class="w-4/5 mr-2 mb-3" value="{{ old('start_at') }}"><span class="text-2xl">から</span>
@@ -32,7 +36,15 @@
                                 <input type="submit" formaction="{{ route('reservation.store') }}" class="w-1/3 bg-yellow-300 font-bold py-2" value="予約する">
                             </div>
                         </form>
-
+                        
+                        @if ($reservationList->count() > 0)
+                            <p>下記の日程で予約が入っています。</p>
+                            <p>日程が被らないように貸出・予約しましょう。</p>
+                            @foreach ( $reservationList as $reservation)
+                                <p class="font-bold">・{{ \Carbon\Carbon::parse($reservation->start_at)->format('Y年m月d日')}} ~ {{ \Carbon\Carbon::parse($reservation->end_at)->format('Y年m月d日')}}</p>          
+                            @endforeach
+                        @endif
+                        
                         @if ($errors->any())
                             <div class="alert alert-danger mt-10">
                                 <ul>

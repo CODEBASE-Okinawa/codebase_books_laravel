@@ -18,6 +18,13 @@ use App\Http\Controllers\BookController;
 |
 */
 
+// 確認用route 後で消す
+Route::get('/mail', function () {
+    return view('mails.remind_return_book');
+});
+Route::get('/get', [LendingController::class, 'send']);
+// ここまで
+
 Route::get('/', function () {
     return view('welcome');
 });

@@ -5,6 +5,9 @@ const MY_RESERVATION = '予約しています';
 const OTHER_LENDING  = '貸出中';
 const NO_LENDING     = '貸出可能';
 
+const ADMIN    = 1;
+const NO_ADMIN = 0;
+
 return [
     'bg-color' => [
         MY_LENDING     => 'bg-sky-500',

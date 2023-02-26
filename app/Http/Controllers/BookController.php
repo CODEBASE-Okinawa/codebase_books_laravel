@@ -75,7 +75,6 @@ class BookController extends Controller
         }
 
         $reservationList = $this->getReservationList($bookId);
-        // dd($reservationList);
 
         $book = Book::find($bookId);
         $now = Carbon::now()->toDateString();
@@ -88,7 +87,6 @@ class BookController extends Controller
         $book = Book::find($bookId);
         $now = Carbon::now()->toDateString();
         $reservationList = $book->reservations()->where('start_at', '>=', $now)->get()->sortBy('start_at');
-        // dd($reservationList);
        // 予約リスト返却する
         return $reservationList;
     }

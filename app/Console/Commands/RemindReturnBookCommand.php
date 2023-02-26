@@ -2,12 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\RemindReturnBookJob;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class RemindReturnBookCommand extends Command
 {
     /**
      * The name and signature of the console command.
+     * php artisan remind:return-book
      *
      * @var string
      */
@@ -27,6 +30,7 @@ class RemindReturnBookCommand extends Command
      */
     public function handle()
     {
+        Log::debug('start RemindReturnBookJob'); // 残しとく
         RemindReturnBookJob::dispatch();
     }
 }

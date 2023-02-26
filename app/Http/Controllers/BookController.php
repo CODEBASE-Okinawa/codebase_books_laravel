@@ -74,8 +74,20 @@ class BookController extends Controller
             $status = NO_LENDING;
         }
 
+        $reservationList = $this->getReservationList($bookId);
+
         $book = Book::find($bookId);
         $now = Carbon::now()->toDateString();
-        return view('book.show', compact('book', 'now', 'status'));
+        return view('book.show', compact('book', 'now', 'status', 'reservationList','lending'));
+    }
+
+    public function getReservationList(int $bookId)
+    {
+        // その本の予約リストを取得する
+        $book = Book::find($bookId);
+        $now = Carbon::now()->toDateString();
+        $reservationList = $book->reservations()->where('start_at', '>=', $now)->get()->sortBy('start_at');
+       // 予約リスト返却する
+        return $reservationList;
     }
 }

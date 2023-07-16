@@ -18,8 +18,12 @@
                     @foreach( $books as $book )
                         <div class="w-1/5">
                             <a href="{{ route('book.show', ['bookId' => $book->id]) }}">
-                                <img class="object-cover w-full" src="{{ asset('storage/'.$book->image_path) }}"
-                                     alt="book">
+                                @if("api" == substr(asset('storage/'.$book->image_path), -3))
+                                    <img class="object-cover w-full" src="{{ $book->image_path }}" alt="book">
+                                @endif
+                                @if("jpg" == substr(asset('storage/'.$book->image_path), -3))
+                                    <img class="object-cover w-full" src="{{ asset('storage/'.$book->image_path) }}" alt="book">
+                                @endif
                                 <ul class="bg-zinc-400 p-3">
                                     <li class="text-2xl font-bold">{{ $book->title }}</li>
                                     <li class="inline-block px-8 {{ config('status.bg-color')[$statusList[$book->id]] }}">{{ $statusList[$book->id] }}</li>

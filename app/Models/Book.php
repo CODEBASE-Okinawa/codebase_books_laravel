@@ -14,6 +14,7 @@ class Book extends Model
         'title',
         'image_path',
         'deleted_at',
+        'isbn_10',
     ];
 
     public function reservations()

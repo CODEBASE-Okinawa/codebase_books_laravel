@@ -20,6 +20,9 @@
                         <x-nav-link :href="route('filament.resources.users.index')" :active="request()->routeIs('filament.resources.users.index')">
                             {{ __('ユーザー一覧') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('isbn.index')" :active="request()->routeIs('isbn.index')">
+                            {{ __('isbn検索画面') }}
+                        </x-nav-link>
                     @endif
                         <x-nav-link :href="route('book.index')" :active="request()->routeIs('book.index')">
                             {{ __('本一覧') }}

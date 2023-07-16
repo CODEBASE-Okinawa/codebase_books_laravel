@@ -6,6 +6,7 @@ use App\Http\Controllers\LendingController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\Admin\IsbnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,13 @@ Route::middleware(['auth', 'delete_all_past_reservation'])->group(function () {
     Route::get('/reservations',[ReservationController::class,'index'])->name('reservation.index');
     Route::get('/reservations/{reservationId}',[ReservationController::class,'show'])->middleware(['delete_past_reservation'])->name('reservation.show');
     Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+
+    // isbnルーティング
+    Route::get('/isbn', [IsbnController::class, 'index'])->name('isbn.index');
+    Route::get('/search', [IsbnController::class, 'search'])->name('isbn.search');
+    Route::post('/create', [IsbnController::class, 'create'])->name('isbn.create');
+
+
 });
 
 require __DIR__.'/auth.php';

@@ -64,6 +64,8 @@ Route::middleware(['auth', 'delete_all_past_reservation'])->group(function () {
     //requestルーティング
     Route::get('/request', [RequestController::class, 'index'])->name('request.index');
     Route::get('/request/search', [RequestController::class, 'search'])->name('request.search');
+    Route::get('/request/show', [RequestController::class, 'show'])->name('request.show');
+    Route::post('/request/create', [RequestController::class, 'create'])->name('request.create');
 
 });
 

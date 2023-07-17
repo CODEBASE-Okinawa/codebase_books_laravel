@@ -23,6 +23,9 @@
                         <x-nav-link :href="route('isbn.index')" :active="request()->routeIs('isbn.index')">
                             {{ __('isbn検索画面') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('request.show')" :active="request()->routeIs('request.show')">
+                            {{ __('リクエスト本一覧') }}
+                        </x-nav-link>
                     @endif
                         <x-nav-link :href="route('book.index')" :active="request()->routeIs('book.index')">
                             {{ __('本一覧') }}

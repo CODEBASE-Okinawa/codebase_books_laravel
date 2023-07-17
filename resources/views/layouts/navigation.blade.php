@@ -33,6 +33,9 @@
                         <x-nav-link :href="route('lending.index')" :active="request()->routeIs('lending.index')">
                             {{ __('貸出一覧') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('request.index')" :active="request()->routeIs('request.index')">
+                            {{ __('本リクエスト') }}
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>

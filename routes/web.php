@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Admin\IsbnController;
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,9 @@ Route::middleware(['auth', 'delete_all_past_reservation'])->group(function () {
     Route::get('/search', [IsbnController::class, 'search'])->name('isbn.search');
     Route::post('/create', [IsbnController::class, 'create'])->name('isbn.create');
 
+    //requestルーティング
+    Route::get('/request', [RequestController::class, 'index'])->name('request.index');
+    Route::get('/request/search', [RequestController::class, 'search'])->name('request.search');
 
 });
 

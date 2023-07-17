@@ -20,8 +20,6 @@ return new class extends Migration {
             if ($targetList->count() > 0) {
                 foreach ($targetList as $target) {
                     $target->update(['isbn_10' => null]);
-                    // $target->isbn_10 = null;
-                    // $target->save();
                 }
             }
         });

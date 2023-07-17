@@ -28,7 +28,14 @@ class IsbnController extends Controller
 
         if (isset($response['items'])) {
             $item = $response['items'][0]['volumeInfo'];
-            $isbn = $item['industryIdentifiers']['0']['identifier'];
+            $isbn = null;
+
+            // レスポンスによってISBN_10とISBN_13の順番が入れ替わるのでちゃんとISBN_10を探す
+            foreach ($item['industryIdentifiers'] as $isbnInfo) {
+                if ($isbnInfo['type'] == 'ISBN_10') {
+                    $isbn = $isbnInfo['identifier'];
+                }
+            }
 
             $book = [
                 'title'    => $item['title'],
